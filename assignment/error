@@ -1,0 +1,22 @@
+[mr-fool@localhost assignment]$   gprolog --consult-file a1.pl --consult-file family.pl
+GNU Prolog 1.4.4 (64 bits)
+Compiled Aug 16 2014, 23:15:08 with gcc
+By Daniel Diaz
+Copyright (C) 1999-2013 Daniel Diaz
+compiling /home/mr-fool/Documents/programming/prolog/assignment/a1.pl for byte code...
+/home/mr-fool/Documents/programming/prolog/assignment/a1.pl:1: warning: singleton variables [X,Y] for species/2
+/home/mr-fool/Documents/programming/prolog/assignment/a1.pl:2: warning: singleton variables [X] for male/1
+/home/mr-fool/Documents/programming/prolog/assignment/a1.pl:3: warning: singleton variables [X] for female/1
+/home/mr-fool/Documents/programming/prolog/assignment/a1.pl:4: warning: singleton variables [X,Y] for hasChild/2
+/home/mr-fool/Documents/programming/prolog/assignment/a1.pl:5: warning: singleton variables [X,Y] for own/2
+/home/mr-fool/Documents/programming/prolog/assignment/a1.pl compiled, 6 lines read - 649 bytes written, 16 ms
+compiling /home/mr-fool/Documents/programming/prolog/assignment/family.pl for byte code...
+/home/mr-fool/Documents/programming/prolog/assignment/family.pl compiled, 76 lines read - 6237 bytes written, 21 ms
+warning: /home/mr-fool/Documents/programming/prolog/assignment/family.pl:1: redefining procedure species/2
+         /home/mr-fool/Documents/programming/prolog/assignment/a1.pl:1: previous definition
+warning: /home/mr-fool/Documents/programming/prolog/assignment/family.pl:12: redefining procedure male/1
+         /home/mr-fool/Documents/programming/prolog/assignment/a1.pl:2: previous definition
+warning: /home/mr-fool/Documents/programming/prolog/assignment/family.pl:27: redefining procedure female/1
+         /home/mr-fool/Documents/programming/prolog/assignment/a1.pl:3: previous definition
+warning: /home/mr-fool/Documents/programming/prolog/assignment/family.pl:38: redefining procedure hasChild/2
+         /home/mr-fool/Documents/programming/prolog/assignment/a1.pl:4: previous definition
