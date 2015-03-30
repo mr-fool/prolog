@@ -14,6 +14,7 @@ grandparentOf(X,Y) :- parentOf(X,Z), parentOf(Z,Y).
 
 grandmotherOf(X,Y) :- grandparentOf(X,Y), female(X).
 grandmotherOf(X,Y) :- grandparentOf(X,Y), \+male(X).
+grandmotherOf(X,Y) :- female(X).
 
 grandfatherOf(X,Y) :- grandparentOf(X,Y), male(X).
 grandfatherOf(X,Y) :- grandparentOf(X,Y),\+female(X).
