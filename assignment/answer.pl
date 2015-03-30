@@ -1,14 +1,19 @@
 parentOf(X,Y) :- hasChild(X,Y).
 
-motherOf(X,Y) :- parentOf(X,Y), female(X).
+%I modded tow rules so I can infer gender
+%male(A) :- parentOf(B, Y), parentOf(A, Y), A \= B, female(B).
+%female(A) :- parentOf(B, Y), parentOf(A, Y), A \= B, male(B).
 
-fatherOf(X,Y) :- parentOf(X,Y), male(X).
+
+motherOf(X,Y) :- parentOf(B,Y), parentOf(X,Y), X \= B, male(B).
+
+fatherOf(X,Y) :- parentOf(B,Y), parentOf(X,Y), X \= B, female(B).
 
 grandparentOf(X,Y) :- parentOf(X,Z), parentOf(Z,Y).
 
-grandmotherOf(X,Y) :- parentOf(X,Z), parentOf(Z,Y), female(X).
+grandmotherOf(X,Y) :- parentOf(X,Z), parentOf(Z,Y), motherOf(Z,Y), motherOf(Y,X).
 
-grandfatherOf(X,Y) :- parentOf(X,Z), parentOf(Z,Y), male(X).
+grandfatherOf(X,Y) :- parentOf(X,Z), parentOf(Z,Y), fatherOf(Z,Y), fatherOf(Y,X).
 
 greatgrandparentOf(X,Y) :- parentOf(X,Z), parentOf(Z,A), parentOf(A,Y).
 
