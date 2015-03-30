@@ -8,7 +8,7 @@ female(X,Y) :- parentOf(B,Y), parentOf(X,Y), X \= B, male(B).
 
 
 motherOf(X,Y) :- parentOf(X,Y), female(X).
-motherOf(X,Y) :- parentOf(B,Y), parentOf(X,Y), X \= B, male(B).
+%motherOf(X,Y) :- parentOf(B,Y), parentOf(X,Y), X \= B, male(B).
 
 fatherOf(X,Y) :- parentOf(X,Y), male(X).
 %fatherOf(X,Y) :- parentOf(B,Y), parentOf(X,Y), X \= B, female(B).
@@ -18,7 +18,7 @@ grandparentOf(X,Y) :- parentOf(X,Z), parentOf(Z,Y).
 grandmotherOf(X,Y) :- grandparentOf(X,Y), female(X).
 
 grandfatherOf(X,Y) :- grandparentOf(X,Y), male(X).
-grandfatherOf(X,Y) :- grandparentOf(X,Y),\+female(X).
+%grandfatherOf(X,Y) :- grandparentOf(X,Y),\+female(X).
 
 greatgrandparentOf(X,Y) :- parentOf(X,Z), parentOf(Z,A), parentOf(A,Y).
 
