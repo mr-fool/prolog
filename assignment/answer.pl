@@ -3,22 +3,23 @@ parentOf(X,Y) :- hasChild(X,Y).
 %I modded tow rules so I can infer gender
 %male(A) :- parentOf(B, Y), parentOf(A, Y), A \= B, female(B).
 %female(A) :- parentOf(B, Y), parentOf(A, Y), A \= B, male(B).
-male(X,Y) :- parentOf(B,Y), parentOf(X,Y), X \= B, female(B).
-female(X,Y) :- parentOf(B,Y), parentOf(X,Y), X \= B, male(B).
+%male(X,Y) :- parentOf(B,Y), parentOf(X,Y), X \= B, female(B).
+%female(X,Y) :- parentOf(B,Y), parentOf(X,Y), X \= B, male(B).
 
 
 motherOf(X,Y) :- parentOf(X,Y), female(X).
-%motherOf(X,Y) :- parentOf(B,Y), parentOf(X,Y), X \= B, male(B).
+motherOf(X,Y) :- parentOf(B,Y), parentOf(X,Y), X \= B, male(B).
 
 fatherOf(X,Y) :- parentOf(X,Y), male(X).
-%fatherOf(X,Y) :- parentOf(B,Y), parentOf(X,Y), X \= B, female(B).
+fatherOf(X,Y) :- parentOf(B,Y), parentOf(X,Y), X \= B, female(B).
 
 grandparentOf(X,Y) :- parentOf(X,Z), parentOf(Z,Y).
 
 grandmotherOf(X,Y) :- grandparentOf(X,Y), female(X).
+grandmotherOf(X,Y) :- motherOf(Z,Y), motherOf(W,Z), \+male(W).
 
 grandfatherOf(X,Y) :- grandparentOf(X,Y), male(X).
-%grandfatherOf(X,Y) :- grandparentOf(X,Y),\+female(X).
+grandfatherOf(X,Y) :- grandparentOf(X,Y),\+female(X).
 
 greatgrandparentOf(X,Y) :- parentOf(X,Z), parentOf(Z,A), parentOf(A,Y).
 
@@ -34,3 +35,9 @@ daughterOf(X,Y) :- parentOf(Y,X), female(X).
 sonOf(X,Y) :- parentOf(Y,X), male(X).
 
 grandchildOf(X,Y) :- parentOf(Y,Z), parentOf(Z,X).
+
+
+%Error from the test 
+%grandmotherOf(jane,jack). false                    Incorrect output: Expected starts-with of false or no
+%grandmotherOf(jane,X).                             Incorrect output: Expected bag of [mavis], but got [george,jack,jill,mavis,snoopy]
+%grandmotherOf(X,jill).                             Incorrect output: Expected bag of [freida,jan], but got [_,_,freida,jan]
