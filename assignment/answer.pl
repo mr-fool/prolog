@@ -47,8 +47,9 @@ greatgrandsonOf(X,Y) :- isMale(X), greatgrandparentOf(Y,X).
 ancestorOf(X,Y) :- parentOf(X, Y).
 ancestorOf(X,Y) :- parentOf(X, Z), ancestorOf(Z,Y).
 
-%ancestorOf(X,Y,0) :-  true.
-%ancestorOf(X,Y,N) :- N1 is N -1, ancestorOf(X,Y,N1).
+ancestorOf(X,Y,0) :- X =Y,true.
+ancestorOf(X,Y,1) :- ancestorOf(X,Y).
+ancestorOf(X,Y,N) :- N1 is N -1, ancestorOf(X,Y,N1).
 
 parent(X) :- hasChild(X,Y).
 
