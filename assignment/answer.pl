@@ -55,7 +55,7 @@ parent(X) :- hasChild(X,Y).
 %helper function
 descendantOf(X,Y) :- childOf(X,Y).
 descendantOf(X,Y) :- childOf(X,Z), childOf(Z,Y).
-related(X,X)
+related(X,X).
 related(X,Y) :- ancestorOf(X,Y).
 related(X,Y) :- ancestorOf(Y,X).
 related(X,Y) :- descendantOf(X,Y).
