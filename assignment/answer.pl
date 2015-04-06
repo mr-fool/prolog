@@ -46,9 +46,20 @@ greatgrandsonOf(X,Y) :- isMale(X), greatgrandparentOf(Y,X).
 
 ancestorOf(X,Y) :- parentOf(X, Y).
 ancestorOf(X,Y) :- parentOf(X, Z), ancestorOf(Z,Y).
-%ancestorOf(X,Y,Z) :- max_depth(Z), ancestorOf(X,Y).
+
+%ancestorOf(X,Y,0) :-  true.
+%ancestorOf(X,Y,N) :- N1 is N -1, ancestorOf(X,Y,N1).
 
 parent(X) :- hasChild(X,Y).
+
+%helper function
+descendantOf(X,Y) :- childOf(X,Y).
+descendantOf(X,Y) :- childOf(X,Z), childOf(Z,Y).
+related(X,X)
+related(X,Y) :- ancestorOf(X,Y).
+related(X,Y) :- ancestorOf(Y,X).
+related(X,Y) :- descendantOf(X,Y).
+related(X,Y) :- descendantOf(Y,X).
 
 sibling(X,Y) :- motherOf(Z,X), motherOf(Z,Y), fatherOf(W,X), fatherOf(W,Y), \+pet(X), \+pet(Y), X \= Y.
 
@@ -59,9 +70,9 @@ brotherOf(X,Y) :- sibling(X,Y), male(X).
 bortherOf(X,Y) :- sibling(X,Y), isMale(X).
 
 %helping function 
-at_least_one_parent(X,Y) :- (motherOf(Z,X), motherOf(Z,Y) ; fatherOf(W,X), fatherOf(W,Y) ).
-at_least_two_parents(X,Y) :- (motherOf(Z,X), motherOf(Z,Y) , fatherOf(W,X), fatherOf(W,Y) ).
-stepSibling(X,Y) :- at_least_one_parent(X,Y), \+at_least_two_parents(X,Y), \+pet(X), \+pet(Y), X \= Y.
+atLeastOneParent(X,Y) :- (motherOf(Z,X), motherOf(Z,Y) ; fatherOf(W,X), fatherOf(W,Y) ).
+atLeastTwoParents(X,Y) :- (motherOf(Z,X), motherOf(Z,Y) , fatherOf(W,X), fatherOf(W,Y) ).
+stepSibling(X,Y) :- atLeastOneParent(X,Y), \+atLeastTwoParents(X,Y), \+pet(X), \+pet(Y), X \= Y.
 
 getSpecies(X,Y) :- species(X,Y).
 
@@ -72,4 +83,12 @@ isFemale(A) :- female(A).
 isFemale(A) :- parentOf(B, Y), parentOf(A, Y), A \= B, male(B).
 
 pet(X) :- owns(Y,X), ( isMale(X) ; isFemale(X) ).
-feral(X) :- parentOf(Y,X), ( isMale(Y) ; isFemale(Y) ), \+owns(Y,X).
+
+%helper function
+human(X) :- \+pet(X).
+isNonLivingThing(car).
+isNonLivingThing(house).
+isLivingThing(X) :- \+isNonLivingThing(X),\+pet(X).
+
+feral(X) :- parentOf(Y,X), owns(W,Y), \+owns(Z,X).
+
