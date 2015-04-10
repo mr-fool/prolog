@@ -48,8 +48,14 @@ ancestorOf(X,Y) :- parentOf(X, Y).
 ancestorOf(X,Y) :- parentOf(X, Z), ancestorOf(Z,Y).
 
 ancestorOf(X,Y,0) :- X =Y,true.
-ancestorOf(X,Y,1) :- ancestorOf(X,Y).
-ancestorOf(X,Y,N) :- N1 is N -1, ancestorOf(X,Y,N1).
+ancestorOf(X,Y,1) :- parentOf(X,Y).
+ancestorOf(X,Y,2) :- grandparentOf(X,Y).
+ancestorOf(X,Y,3) :- greatgrandparentOf(X,Y).
+
+descendantOf(X,Y,0) :- X =Y,true.
+descendantOf(X,Y,1) :- parentOf(Y,X).
+descendantOf(X,Y,2) :- grandparentOf(Y,X).
+descendantOf(X,Y,3) :- greatgrandparentOf(Y,X).
 
 parent(X) :- hasChild(X,Y).
 
