@@ -91,7 +91,6 @@ bortherOf(X,Y) :- sibling(X,Y), isMale(X).
 %helping function 
 atLeastOneParent(X,Y) :- (motherOf(Z,X), motherOf(Z,Y) ; fatherOf(W,X), fatherOf(W,Y) ).
 atLeastTwoParents(X,Y) :- (motherOf(Z,X), motherOf(Z,Y) , fatherOf(W,X), fatherOf(W,Y) ).
-atLeastTwoParents(X,Y) :- parentOf(Z,X) == parentOf(W,Y).
 stepSibling(X,Y) :- atLeastOneParent(X,Y), \+atLeastTwoParents(X,Y),  X \= Y.
 
 stepSisterOf(X,Y) :- stepSibling(X,Y), isFemale(X).
