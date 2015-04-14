@@ -89,9 +89,13 @@ brotherOf(X,Y) :- sibling(X,Y), male(X).
 bortherOf(X,Y) :- sibling(X,Y), isMale(X).
 
 %helping function 
-atLeastOneParent(X,Y) :- (motherOf(Z,X), motherOf(Z,Y) ; fatherOf(W,X), fatherOf(W,Y) ).
+hasFather(X):-  parentOf(Y,X), isMale(Y).
+hasMother(X):-  parentOf(Y,X), isFemale(Y).
+atLeastOneParent(X,Y) :- (motherOf(Z,X), motherOf(Z,Y) ; fatherOf(W,X), fatherOf(W,Y) ), X \= Y.
 atLeastTwoParents(X,Y) :- (motherOf(Z,X), motherOf(Z,Y) , fatherOf(W,X), fatherOf(W,Y) ).
-stepSibling(X,Y) :- atLeastOneParent(X,Y), \+atLeastTwoParents(X,Y),  X \= Y.
+noFather(X,Y) :- parentOf(X,Z),parentOf(X,Y), Y\= Z.
+%stepSibling(X,Y) :- atLeastOneParent(X,Y), \+atLeastTwoParents(X,Y),  X \= Y.
+stepSibling(X,Y) :- hasFather(X), hasFather(Y), hasMother(X), hasMother(Y), atLeastOneParent(X,Y), \+atLeastTwoParents(X,Y), X \= Y.
 
 stepSisterOf(X,Y) :- stepSibling(X,Y), isFemale(X).
 
