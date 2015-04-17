@@ -1,0 +1,2 @@
+mylength([],0).
+mylength([H|T],Y) :- mylength(T,M), Y is M + 1 .
